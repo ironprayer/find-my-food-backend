@@ -1,20 +1,30 @@
-import { Controller, Get, Post, Body } from "@nestjs/common";
-import { CreateFoodDto } from "./dto/create-food.dto";
-import { FoodService } from "./foods.services";
-import { Food } from "./interface/food.interface";
+import { Controller, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common';
 
-@Controller('Foods')
-export class FoodController {
-    constructor(private foodsService: FoodService){}
-
-    @Post()
-    async create(@Body() createFoodDto:CreateFoodDto){
-        this.foodsService.create(createFoodDto);
-    }
+@Controller('foods')
+export class FoodsController {
 
     @Get()
-    async findAll(): Promise<Food[]>{
-        return this.foodsService.findAll();
+    getAll(){
+        return "This will return all foods"
     }
 
+    @Get("/:id")
+    getOne(@Param("id") id:string){
+        return `This will return one foods with the id: ${id}`;
+    }
+
+    @Post()
+    create(){
+        return "This will create a foods";
+    }
+
+    @Delete("/:id")
+    remove(@Param("id") id:string){
+        return `This will delete foods with thi id : ${id}`
+    }
+
+    @Patch('/:id')
+    path(@Param("id") id:string){
+        return `This will update foods with this id : ${id}`
+    }
 }
